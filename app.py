@@ -10,6 +10,18 @@ from transcriber import transcribe_audio
 from scorer import score_grammar
 import nest_asyncio
 
+
+os.makedirs('.streamlit', exist_ok=True)
+with open('.streamlit/config.toml', 'w') as f:
+    f.write("""
+[server]
+headless = true
+port = $PORT
+enableCORS = false
+enableXsrfProtection = false
+address = "0.0.0.0"
+""")
+
 model = whisper.load_model("base", device="cpu")
 sys.modules["torch.classes"] = None
 nest_asyncio.apply()
